@@ -1,0 +1,33 @@
+
+<h1 class="page-header">{{title}}</h1>
+<h2 ng-if="message">{{message}}</h2>
+<div class="list-group">
+	<a href="#" class="list-group-item" ng-repeat="item in subjects">
+		<span class="badge">{{item.rating.average}}</span>
+		<div class="media">
+			<div class="media-left">
+				<!--如果用src会报一个404的错误，因为angular加载完的时候还没有拿到这个图片，所以要用ng-src-->
+				<img class="media-object" ng-src="{{item.images.small}}" alt="item.title">
+			</div>
+			<div class="media-body">
+				<h4 class="media-heading">{{item.title}}</h4>
+				<p>导演: <span ng-repeat="d in item.directors">{{d.name}} <i ng-if="!$last">、</i></span></p>
+				<p>类型：<span>{{item.genres.join('、')}}</span></p>
+			</div>
+		</div>
+	</a>
+</div>
+
+<div ng-show="!loading">
+	<p>总共{{totalCount}}条记录 第{{currentPage}}/{{totalPages}}页</p>
+	<ul class="pager">
+		<li  ng-class="{disabled:currentPage<=1}"><a ng-click="go(currentPage-1)">上一页</a></li>
+		<li ng-class="{disabled:currentPage>=totalPages}"><a ng-click="go(currentPage+1)">下一页</a></li>
+	</ul>
+</div>
+
+
+<div class="spinner" ng-show="loading">
+	<div class="cube1"></div>
+	<div class="cube2"></div>
+</div>
